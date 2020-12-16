@@ -1,4 +1,5 @@
 # KHGT
+Code for KHGT accepted by AAAI2021
 
 Please unzip the data files in Datasets/ first.
 
