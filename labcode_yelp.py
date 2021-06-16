@@ -78,7 +78,7 @@ class Recommender:
 		attval = tf.slice(attval, [0, 0], [maxNum, -1])
 		return attval
 
-	def messagePropagate(self, lats, mats, maxNum, wTime=True):
+	def messagePropagate(self, srclats, tgtlats, mats, maxNum, wTime=True):
 		unAct = []
 		lats1 = []
 		paramId = 'dfltP%d' % NNs.getParamId()
@@ -90,8 +90,8 @@ class Recommender:
 			srcNodes = tf.squeeze(tf.slice(mat.indices, [0, 1], [-1, 1]))
 			tgtNodes = tf.squeeze(tf.slice(mat.indices, [0, 0], [-1, 1]))
 			edgeVals = mat.values
-			srcEmbeds = (tf.nn.embedding_lookup(lats, srcNodes) + (tf.nn.embedding_lookup(timeEmbed, edgeVals) if wTime else 0))
-			tgtEmbeds = tf.nn.embedding_lookup(lats, tgtNodes)
+			srcEmbeds = (tf.nn.embedding_lookup(srclats, srcNodes) + (tf.nn.embedding_lookup(timeEmbed, edgeVals) if wTime else 0))
+			tgtEmbeds = tf.nn.embedding_lookup(tgtlats, tgtNodes)
 
 			newTgtEmbeds = self.GAT(srcEmbeds, tgtEmbeds, tgtNodes, maxNum, Qs, Ks, Vs)
 
@@ -130,9 +130,9 @@ class Recommender:
 		ulats = [uEmbed0]
 		ilats = [iEmbed0]
 		for i in range(args.gnn_layer):
-			ulat = self.messagePropagate(ilats[-1], self.adjs, args.user)
-			ilat1 = self.messagePropagate(ulats[-1], self.tpAdjs, args.item)
-			ilat2 = self.messagePropagate(ilats[-1], self.iiAdjs, args.item, wTime=False)
+			ulat = self.messagePropagate(ilats[-1], ulats[-1], self.adjs, args.user)
+			ilat1 = self.messagePropagate(ulats[-1], ilats[-1], self.tpAdjs, args.item)
+			ilat2 = self.messagePropagate(ilats[-1], ilats[-1], self.iiAdjs, args.item, wTime=False)
 			ilat = args.iiweight * ilat2 + (1.0 - args.iiweight) * ilat1
 			ulats.append(ulat + ulats[-1])
 			ilats.append(ilat + ilats[-1])
