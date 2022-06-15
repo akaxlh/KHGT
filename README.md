@@ -22,9 +22,7 @@ If you want to use our codes and datasets in your research, please cite:
                Pei, Jian and
                Bo, Liefeng},
   title     = {Knowledge-Enhanced Hierarchical Graph Transformer Network for Multi-Behavior Recommendation},
-  booktitle = {Proceedings of the 35th AAAI Conference on Artificial Intelligence,
-  			  AAAI 2021,
-              Online, February 2-9, 2021.},
+  booktitle = {Proceedings of the 35th AAAI Conference on Artificial Intelligence, AAAI 2021, Online, February 2-9, 2021.},
   year      = {2021},
 }
 ```
