@@ -14,7 +14,7 @@ If you want to use our codes and datasets in your research, please cite:
 ```
 @inproceedings{xia2021khgt,
   author    = {Xia, Lianghao and
-  			   Huang, Chao and
+               Huang, Chao and
                Xu, Yong and
                Dai, Peng and
                Zhang, Xiyue and
