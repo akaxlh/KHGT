@@ -59,9 +59,9 @@ class Recommender:
 		self.saveHistory()
 
 	def GAT(self, srcEmbeds, tgtEmbeds, tgtNodes, maxNum, Qs, Ks, Vs):
-		QWeight = tf.nn.softmax(NNs.defineRandomNameParam([args.memosize, 1, 1], reg=True), axis=1)
-		KWeight = tf.nn.softmax(NNs.defineRandomNameParam([args.memosize, 1, 1], reg=True), axis=1)
-		VWeight = tf.nn.softmax(NNs.defineRandomNameParam([args.memosize, 1, 1], reg=True), axis=1)
+		QWeight = NNs.defineRandomNameParam([args.memosize, 1, 1], reg=True)
+		KWeight = NNs.defineRandomNameParam([args.memosize, 1, 1], reg=True)
+		VWeight = NNs.defineRandomNameParam([args.memosize, 1, 1], reg=True)
 		Q = tf.reduce_sum(Qs * QWeight, axis=0)
 		K = tf.reduce_sum(Ks * KWeight, axis=0)
 		V = tf.reduce_sum(Vs * VWeight, axis=0)
